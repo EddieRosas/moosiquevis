@@ -1,0 +1,16 @@
+{
+  "name": "sore_eyes",
+  "version": "1.0.0",
+  "description": "music visualizer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch --mode=development"
+  },
+  "author": "Eddie Rosas",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
