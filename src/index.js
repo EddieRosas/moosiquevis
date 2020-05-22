@@ -1,88 +1,125 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+    let modal = document.getElementsByClassName("modal")[0];
+    let modalContent = document.getElementsByClassName("modal-content")[0]
+
+    
+
+    // I'm using "click" but it works with any event
+    clickToClose = () => {
+        document.addEventListener('click', function (event) {
+            debugger
+
+            let isClickInside = modalContent.contains(event.target);
+
+            if (!isClickInside) {
+                modal.classList.add("hide");
+                modalContent.classList.add("hide");
+            }
+        });
+    }
+    
+    document.removeEventListener("click", clickToClose, false);
+    
+    clickToClose();
+
+    let modalButton = document.getElementById("instructions");
+
+    modalButton.addEventListener("click", () => {
+        modal.classList.remove("hide");
+        modalContent.classList.remove("hide");
+        clickToClose();
+    })
+
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+
     let 
+        audio,
+        audioContext,
+        playButton,
+        volumeControl,
+        gainNode,
         track,
         analyser,
         bufferLength,
         dataArray;
 
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    const audioContext = new AudioContext();
-    
+    const fileInput = document.getElementById("file-input");
+
+    fileInput.onchange = () => {
+        if (!audioContext || audioContext.state !== "running") {
+            songUrl = URL.createObjectURL(fileInput.files[0]);
+            audio = new Audio();
+            console.log(audio);
+            audio.src = songUrl;
+            setup();
+        }
+    }
+
+    let demo = document.getElementById("demo") 
+
+    demo.addEventListener("click", () => {
+        audio = new Audio("/dist/demo_song.mp3");
+        setup();
+    })
+
+    setup = () => {
+        audioContext = audioContext || new AudioContext();
+        analyser = ( analyser || audioContext.createAnalyser());
+        track = audioContext.createMediaElementSource(audio);
+        analyser.fftSize = 2048
+        bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+        track.connect(analyser);
+
+        
+        playButton = document.getElementById("play-button");
+
+        playButton.addEventListener('click', () => {
+
+            
+
+            // check if context is in suspended state (autoplay policy)
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+
+            }
+
+            // play or pause track depending on state
+            if (playButton.dataset.playing === 'false') {
+                audio.play();
+                playButton.dataset.playing = 'true';
+            } else if (playButton.dataset.playing === 'true') {
+                audio.pause();
+                playButton.dataset.playing = 'false';
+            }
+
+        }, false);
+
+        volumeControl = document.querySelector('#volume');
+
+        gainNode = audioContext.createGain();
+        track.connect(gainNode).connect(audioContext.destination)
+
+        volumeControl.addEventListener('input', () => {
+            gainNode.gain.value = this.value;
+        }, false);
+
+        canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+        // drawOscilloscope();
+        // sunAnimation();
+    }
+
     const canvas = document.querySelector("canvas");
     const canvasCtx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-
-    const WIDTH = canvas.width; 
+    const WIDTH = canvas.width;
     const HEIGHT = canvas.height;
 
     
-    
-    //
-    const file = document.getElementById("file-input");
-    
-    file.onchange = () => {
-        
-        audioElement = document.getElementById("audio-file");
-        const files = file.files;
-        console.log('FILES[0]: ', files[0])
-        audioElement.src = URL.createObjectURL(files[0]);
-        
-        const name = files[0].name; 
-        
-        
-        track = audioContext.createMediaElementSource(audioElement);
-        analyser = audioContext.createAnalyser();
-        track.connect(analyser);
-        analyser.fftSize = 2048;
-        bufferLength = analyser.frequencyBinCount;
-        dataArray = new Uint8Array(bufferLength);
-        
-        const playButton = document.querySelector('button');
-        
-        playButton.addEventListener('click', function () {
-            
-            // check if context is in suspended state (autoplay policy)
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-                
-            }
-            
-            // play or pause track depending on state
-            if (this.dataset.playing === 'false') {
-                audioElement.play();
-                this.dataset.playing = 'true';
-            } else if (this.dataset.playing === 'true') {
-                audioElement.pause();
-                this.dataset.playing = 'false';
-            }
-            
-        }, false);
-        
-        const volumeControl = document.querySelector('#volume');
-        
-        const gainNode = audioContext.createGain();
-        track.connect(gainNode).connect(audioContext.destination)
-        
-        volumeControl.addEventListener('input', function () {
-            gainNode.gain.value = this.value;
-        }, false);
-
-        canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-
-        // drawOscilloscope();
-        // drawCircle();
-        // animationLooper();
-
-        octoAnimation();
-        // drawSpin();
-        // spinner();
-        // drawOcto();  
-        
-    }
-
-    function drawOscilloscope() {
+    drawOscilloscope = () => {
 
         let drawVisual = requestAnimationFrame(drawOscilloscope);
         analyser.getByteTimeDomainData(dataArray);
@@ -114,13 +151,11 @@ document.addEventListener("DOMContentLoaded", () => {
         canvasCtx.stroke();
     }
 
-    function drawOcto() {
-        
+    drawSun = () => {
         centerX = WIDTH / 2;
         centerY = HEIGHT / 2;
         radius = 215;
 
-        //draw a circle
         canvasCtx.fillStyle = "coral";
         canvasCtx.beginPath();
         canvasCtx.arc(centerX, centerY, radius, Math.PI,  0);
@@ -141,7 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
         canvasCtx.fillStyle = "black";
         canvasCtx.fill();
 
-
         canvasCtx.beginPath();
         canvasCtx.arc(centerX + 100, centerY + 80, radius * .05, 0, 2 * Math.PI);
         canvasCtx.stroke();
@@ -155,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    function drawLeg(x1, y1, x2, y2, width, frequency) {
+    drawLeg = (x1, y1, x2, y2, width, frequency) => {
         let lineColor = "rgb(" + 200 + ", " + 170 + ", " + frequency + ")";
 
         canvasCtx.strokeStyle = lineColor;
@@ -164,12 +198,11 @@ document.addEventListener("DOMContentLoaded", () => {
         canvasCtx.moveTo(x1, y1);
         canvasCtx.lineTo(x2, y2);
         canvasCtx.stroke();
-
-       
     }
 
-    function octoAnimation() {
-        
+    sunAnimation = () => {
+        requestAnimationFrame(sunAnimation);
+
         let radius = 215
         let centerX = WIDTH / 2;
         let centerY = HEIGHT / 2;
@@ -180,19 +213,18 @@ document.addEventListener("DOMContentLoaded", () => {
         canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
         canvasCtx.fill();
 
-        
-        drawOcto();
-        // spinner();
+        drawSun();
 
         let legs = 128;
         let leg_width = 7;
         analyser.getByteFrequencyData(dataArray);
+        
         for (let i = 0; i < legs; i++) {
 
             rads = Math.PI * 2 / legs;
             leg_height = dataArray[i] * 1.75;
 
-    
+            
             x = centerX + Math.cos(rads * i) * (radius);
             y = centerY + Math.sin(rads * i) * (radius);
             x_end = centerX + Math.cos(rads * i) * (radius + leg_height);
@@ -202,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
             drawLeg(x, y, x_end, y_end, leg_width, dataArray[i]);
 
         }
-        window.requestAnimationFrame(octoAnimation);
+        
     }
 
     // function spinner() {
@@ -217,8 +249,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //         analyser.getByteFrequencyData(dataArray);
     //         let rotateAngle = 0.01; 
     //         for (let angle = 0; angle < 2 * Math.PI; angle += 0.01) {
-    //             let x = 200 * Math.cos(4 * angle) * Math.cos(angle);
-    //             let y = 200 * Math.cos(4 * angle) * Math.sin(angle);
+    //             let x = WIDTH / 2 * Math.cos(4 * angle) * Math.cos(angle);
+    //             let y = HEIGHT / 2 * Math.cos(4 * angle) * Math.sin(angle);
     //             canvasCtx.lineTo(x, y);
     //         }
 
@@ -226,22 +258,10 @@ document.addEventListener("DOMContentLoaded", () => {
     //         canvasCtx.rotate(rotateAngle);
     //         requestAnimationFrame(drawSpin);
     //     }
-    //     drawSpin();
-        
 
+    //     drawSpin();
     // }
 
 
     
-    // octoAnimation();
-    // drawOcto();
-    // drawOctoLegs();
-
-    // animationLooper();
-    // drawCircle()
-
-   
-    // drawSpin();
-    // octoAnimation()
-    // spinner();
 });

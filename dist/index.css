@@ -13,4 +13,39 @@ body {
     font-weight: 600;
     font-family: sans-serif;
     font-size: 48px;
+
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.05);
+  height: 100%;
+  left: 0;
+  opacity: 0.75;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  /* z-index: 10; */
+  display: block;
+  align-items: center;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.hide {
+    display: none;
+}
+
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    /* z-index: */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    width: 80%;
+    padding: 20px;
 }
