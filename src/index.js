@@ -1,35 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    let modal = document.getElementsByClassName("modal")[0];
-    let modalContent = document.getElementsByClassName("modal-content")[0]
+    // let modal = document.getElementsByClassName("modal")[0];
+    // let modalContent = document.getElementsByClassName("modal-content")[0]
 
     
 
-    // I'm using "click" but it works with any event
-    clickToClose = () => {
-        document.addEventListener('click', function (event) {
-            debugger
+    // // I'm using "click" but it works with any event
+    // clickToClose = () => {
+    //     document.addEventListener('click', function (event) {
+    //         debugger
 
-            let isClickInside = modalContent.contains(event.target);
+    //         let isClickInside = modalContent.contains(event.target);
 
-            if (!isClickInside) {
-                modal.classList.add("hide");
-                modalContent.classList.add("hide");
-            }
-        });
-    }
+    //         if (!isClickInside) {
+    //             modal.classList.add("hide");
+    //             modalContent.classList.add("hide");
+    //         }
+    //     });
+    // }
     
-    document.removeEventListener("click", clickToClose, false);
+    // document.removeEventListener("click", clickToClose, false);
     
-    clickToClose();
+    // clickToClose();
 
-    let modalButton = document.getElementById("instructions");
+    // let modalButton = document.getElementById("instructions");
 
-    modalButton.addEventListener("click", () => {
-        modal.classList.remove("hide");
-        modalContent.classList.remove("hide");
-        clickToClose();
-    })
+    // modalButton.addEventListener("click", () => {
+    //     modal.classList.remove("hide");
+    //     modalContent.classList.remove("hide");
+    //     clickToClose();
+    // })
 
     const AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }, false);
 
         canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-        // drawOscilloscope();
-        // sunAnimation();
+        drawOscilloscope();
+        sunAnimation();
     }
 
     const canvas = document.querySelector("canvas");
