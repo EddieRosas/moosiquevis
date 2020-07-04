@@ -1,4 +1,4 @@
-# (Live!)[https://eddierosas.github.io/moosiquevis/]
+# (Live!) [https://eddierosas.github.io/moosiquevis/]
 
 ## A simple music visualizer to make your day a little brighter. 
 
