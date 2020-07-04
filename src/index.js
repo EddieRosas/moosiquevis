@@ -58,8 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let demo = document.getElementById("demo") 
 
+
+
     demo.addEventListener("click", () => {
-        audio = new Audio("https://github.com/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3?raw=true");
+        audio = new Audio("https://raw.githubusercontent.com/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3");
         setup();
     })
 
