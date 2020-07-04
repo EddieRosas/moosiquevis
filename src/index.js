@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     demo.addEventListener("click", () => {
         audio = new Audio("https://raw.githubusercontent.com/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3");
+        audio.setAttribute(crossorigin, "anonymous")
         setup();
     })
 
