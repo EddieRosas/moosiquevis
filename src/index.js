@@ -58,8 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let demo = document.getElementById("demo") 
 
+    // "http://cdn.jsdelivr.net/gh/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3"
+    // "https://raw.githubusercontent.com/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3"
+
     demo.addEventListener("click", () => {
-        audio = new Audio("https://raw.githubusercontent.com/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3");
+        audio = new Audio("http://cdn.jsdelivr.net/gh/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3");
         audio.setAttribute(crossorigin, "anonymous")
         setup();
     })
@@ -73,17 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
         dataArray = new Uint8Array(bufferLength);
         track.connect(analyser);
 
-        
         playButton = document.getElementById("play-button");
 
         playButton.addEventListener('click', () => {
 
-            
-
             // check if context is in suspended state (autoplay policy)
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
-
             }
 
             // play or pause track depending on state
