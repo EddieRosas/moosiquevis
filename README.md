@@ -4,4 +4,4 @@
 
 ## Uses pure javascript for the animations with the integration of Web Audio API. 
 
-## Simply upload a song and hit play!
+## Simply click the demo button to preload a song (or upload your own song), and hit play/pause!
