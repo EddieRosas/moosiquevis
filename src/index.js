@@ -58,8 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let demo = document.getElementById("demo") 
 
-
-
     demo.addEventListener("click", () => {
         audio = new Audio("https://raw.githubusercontent.com/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3");
         audio.setAttribute(crossorigin, "anonymous")
@@ -124,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     drawOscilloscope = () => {
 
-        let drawVisual = requestAnimationFrame(drawOscilloscope);
         analyser.getByteTimeDomainData(dataArray);
         canvasCtx.fillStyle = 'rgb(20, 20, 20)';
         canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
@@ -134,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let sliceWidth = WIDTH * 1.25 / bufferLength;
         let x = 0;
-
 
         for (let i = 0; i < bufferLength; i++) {
 
@@ -264,7 +260,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //     drawSpin();
     // }
-
-
     
 });

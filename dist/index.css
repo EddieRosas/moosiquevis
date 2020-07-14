@@ -36,6 +36,25 @@ body {
     display: none;
 }
 
+input {
+    padding: 5px;
+}
+
+#demo {
+    padding: 2px;
+    margin: 5px;
+}
+
+#volume {
+    margin-top: 5px;
+    display: none;
+}
+
+.interface {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
 
 .modal-content {
     display: flex;
