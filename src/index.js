@@ -1,36 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // let modal = document.getElementsByClassName("modal")[0];
-    // let modalContent = document.getElementsByClassName("modal-content")[0]
-
-    
-
-    // // I'm using "click" but it works with any event
-    // clickToClose = () => {
-    //     document.addEventListener('click', function (event) {
-    //         debugger
-
-    //         let isClickInside = modalContent.contains(event.target);
-
-    //         if (!isClickInside) {
-    //             modal.classList.add("hide");
-    //             modalContent.classList.add("hide");
-    //         }
-    //     });
-    // }
-    
-    // document.removeEventListener("click", clickToClose, false);
-    
-    // clickToClose();
-
-    // let modalButton = document.getElementById("instructions");
-
-    // modalButton.addEventListener("click", () => {
-    //     modal.classList.remove("hide");
-    //     modalContent.classList.remove("hide");
-    //     clickToClose();
-    // })
-
     const AudioContext = window.AudioContext || window.webkitAudioContext;
 
     let 
@@ -57,10 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let demo = document.getElementById("demo")
-    // dist / bensound - groovyhiphop.mp3
-    // "http://cdn.jsdelivr.net/gh/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3"
-    // "https://raw.githubusercontent.com/EddieRosas/moosiquevis/blob/master/dist/demo_song.mp3"
-    // "https://raw.githubusercontent.com/EddieRosas/moosiquevis/blob/master/dist/bensound - groovyhiphop.mp3"
 
     demo.addEventListener("click", () => {
         audio = new Audio("https://raw.githubusercontent.com/EddieRosas/moosiquevis/master/dist/bensound-groovyhiphop.mp3");
@@ -233,32 +198,5 @@ document.addEventListener("DOMContentLoaded", () => {
             drawLeg(x, y, x_end, y_end, leg_width, dataArray[i]);
 
         }
-        
     }
-
-    // function spinner() {
-    //     canvasCtx.translate(WIDTH / 2, HEIGHT / 2);
-    //     function drawSpin() {
-    //         canvasCtx.fillStyle = "rgba(255, 255, 255, .005)";
-    //         canvasCtx.fillRect(-400, -400, WIDTH / 4 , HEIGHT / 4 );
-    //         canvasCtx.beginPath();
-    //         canvasCtx.fillStyle = 'hsla(25,100%,50%, 0.1)';
-    //         canvasCtx.moveTo(0, 0);
-
-    //         analyser.getByteFrequencyData(dataArray);
-    //         let rotateAngle = 0.01; 
-    //         for (let angle = 0; angle < 2 * Math.PI; angle += 0.01) {
-    //             let x = WIDTH / 2 * Math.cos(4 * angle) * Math.cos(angle);
-    //             let y = HEIGHT / 2 * Math.cos(4 * angle) * Math.sin(angle);
-    //             canvasCtx.lineTo(x, y);
-    //         }
-
-    //         canvasCtx.fill();
-    //         canvasCtx.rotate(rotateAngle);
-    //         requestAnimationFrame(drawSpin);
-    //     }
-
-    //     drawSpin();
-    // }
-    
 });

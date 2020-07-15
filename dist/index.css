@@ -13,7 +13,6 @@ body {
     font-weight: 600;
     font-family: sans-serif;
     font-size: 48px;
-
 }
 
 .modal {
@@ -38,15 +37,15 @@ body {
 
 input {
     padding: 5px;
+    border-radius: 5px;
 }
 
-#demo {
-    padding: 2px;
+button {
+    border-radius: 5px;
     margin: 5px;
 }
 
 #volume {
-    margin-top: 5px;
     display: none;
 }
 
@@ -54,17 +53,4 @@ input {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-}
-
-.modal-content {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    /* z-index: */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    width: 80%;
-    padding: 20px;
 }
