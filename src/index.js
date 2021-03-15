@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const fileInput = document.getElementById("file-input");
 
+    playButton = document.getElementById("play-button");
+    playButton.disabled = true;
     fileInput.onchange = () => {
         if (!audioContext || audioContext.state !== "running") {
             songUrl = URL.createObjectURL(fileInput.files[0]);
@@ -34,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setup = () => {
         demoButton.disabled = true;
+        playButton.disabled = false;
         fileInput.disabled = true;
 
         audioContext = audioContext || new AudioContext();
@@ -43,8 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
         bufferLength = analyser.frequencyBinCount;
         dataArray = new Uint8Array(bufferLength);
         track.connect(analyser);
-
-        playButton = document.getElementById("play-button");
 
         playButton.addEventListener('click', () => {
 
@@ -69,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
         gainNode = audioContext.createGain();
         track.connect(gainNode).connect(audioContext.destination)
 
-        canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
         sunAnimation();
     }
 
