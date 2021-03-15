@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let demoButton = document.getElementById("demo")
 
     demoButton.addEventListener("click", () => {
-        audio = new Audio("https://raw.githubusercontent.com/EddieRosas/moosiquevis/master/dist/bensound-groovyhiphop.mp3");
+        audio = new Audio("https://raw.githubusercontent.com/EddieRosas/moosiquevis/master/dist/bensound-allthat.mp3");
         audio.crossOrigin = "anonymous";
         setup();
     })
