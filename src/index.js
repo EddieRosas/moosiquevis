@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const AudioContext = window.AudioContext || window.webkitAudioContext;
 
-    let 
+    let
         audio,
         audioContext,
         playButton,
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const WIDTH = canvas.width;
     const HEIGHT = canvas.height;
 
-    
+
     drawOscilloscope = () => {
 
         analyser.getByteTimeDomainData(dataArray);
@@ -122,15 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         canvasCtx.fillStyle = "coral";
         canvasCtx.beginPath();
-        canvasCtx.arc(centerX, centerY, radius, Math.PI,  0);
-        canvasCtx.moveTo(centerX - radius, centerY);
-        canvasCtx.bezierCurveTo(centerX - radius, centerY + 120, centerX - radius + 40, centerY + 150, centerX - 50, centerY + 200);
-        canvasCtx.moveTo(centerX + radius, centerY);
-        canvasCtx.bezierCurveTo(centerX + radius, centerY + 120, centerX + radius - 40, centerY + 150, centerX + 50, centerY + 200);
-        canvasCtx.moveTo(centerX + 50, centerY + 200);
-        canvasCtx.lineTo(centerX - 50, centerY + 200);
-        canvasCtx.lineTo(centerX - radius, centerY);
-        canvasCtx.lineTo(centerX + radius, centerY)
+        canvasCtx.arc(centerX, centerY, radius, 2 * Math.PI,  0);
         canvasCtx.stroke();
         canvasCtx.fill();
 
@@ -153,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    drawLeg = (x1, y1, x2, y2, width, frequency) => {
+    drawRay = (x1, y1, x2, y2, width, frequency) => {
         let lineColor = "rgb(" + 200 + ", " + 170 + ", " + frequency + ")";
 
         canvasCtx.strokeStyle = lineColor;
@@ -163,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         canvasCtx.lineTo(x2, y2);
         canvasCtx.stroke();
     }
+
 
     sunAnimation = () => {
         requestAnimationFrame(sunAnimation);
@@ -182,20 +175,20 @@ document.addEventListener("DOMContentLoaded", () => {
         let legs = 128;
         let leg_width = 7;
         analyser.getByteFrequencyData(dataArray);
-        
+
         for (let i = 0; i < legs; i++) {
 
             rads = Math.PI * 2 / legs;
             leg_height = dataArray[i] * 1.75;
 
-            
+
             x = centerX + Math.cos(rads * i) * (radius);
             y = centerY + Math.sin(rads * i) * (radius);
             x_end = centerX + Math.cos(rads * i) * (radius + leg_height);
             y_end = centerY + Math.sin(rads * i) * (radius + leg_height);
 
-    
-            drawLeg(x, y, x_end, y_end, leg_width, dataArray[i]);
+
+            drawRay(x, y, x_end, y_end, leg_width, dataArray[i]);
 
         }
     }
