@@ -45,10 +45,6 @@ button {
     margin: 5px;
 }
 
-#volume {
-    display: none;
-}
-
 .interface {
     display: flex;
     flex-direction: column;

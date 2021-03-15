@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
         audio,
         audioContext,
         playButton,
-        volumeControl,
         gainNode,
         track,
         analyser,
@@ -25,15 +24,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    let demo = document.getElementById("demo")
+    let demoButton = document.getElementById("demo")
 
-    demo.addEventListener("click", () => {
+    demoButton.addEventListener("click", () => {
         audio = new Audio("https://raw.githubusercontent.com/EddieRosas/moosiquevis/master/dist/bensound-groovyhiphop.mp3");
         audio.crossOrigin = "anonymous";
         setup();
     })
 
     setup = () => {
+        demoButton.disabled = true;
+        fileInput.disabled = true;
+
         audioContext = audioContext || new AudioContext();
         analyser = ( analyser || audioContext.createAnalyser());
         track = audioContext.createMediaElementSource(audio);
@@ -56,20 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 audio.play();
                 playButton.dataset.playing = 'true';
             } else if (playButton.dataset.playing === 'true') {
+                demoButton.disabled = true;
+                fileInput.disabled = true;
                 audio.pause();
                 playButton.dataset.playing = 'false';
             }
 
         }, false);
 
-        volumeControl = document.querySelector('#volume');
-
         gainNode = audioContext.createGain();
         track.connect(gainNode).connect(audioContext.destination)
-
-        volumeControl.addEventListener('input', () => {
-            gainNode.gain.value = this.value;
-        }, false);
 
         canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
         sunAnimation();
