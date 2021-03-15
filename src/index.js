@@ -72,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, false);
 
         canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-        drawOscilloscope();
         sunAnimation();
     }
 
@@ -83,37 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const WIDTH = canvas.width;
     const HEIGHT = canvas.height;
-
-
-    drawOscilloscope = () => {
-
-        analyser.getByteTimeDomainData(dataArray);
-        canvasCtx.fillStyle = 'rgb(20, 20, 20)';
-        canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-        canvasCtx.lineWidth = 2;
-        canvasCtx.strokeStyle = 'rgb(50, 168, 82)';
-        canvasCtx.beginPath();
-
-        let sliceWidth = WIDTH * 1.25 / bufferLength;
-        let x = 0;
-
-        for (let i = 0; i < bufferLength; i++) {
-
-            let v = dataArray[i] / 128.0;
-            let y = v * HEIGHT / 2;
-
-            if (i === 0) {
-                canvasCtx.moveTo(x, y);
-            } else {
-                canvasCtx.lineTo(x, y);
-            }
-
-            x += sliceWidth;
-        }
-
-        canvasCtx.lineTo(WIDTH, HEIGHT / 2);
-        canvasCtx.stroke();
-    }
 
     drawSun = () => {
         centerX = WIDTH / 2;
@@ -142,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
         canvasCtx.beginPath();
         canvasCtx.arc(centerX, centerY + 100, radius * .05, 0, Math.PI);
         canvasCtx.stroke();
-
     }
 
     drawRay = (x1, y1, x2, y2, width, frequency) => {
@@ -155,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
         canvasCtx.lineTo(x2, y2);
         canvasCtx.stroke();
     }
-
 
     sunAnimation = () => {
         requestAnimationFrame(sunAnimation);
@@ -172,24 +138,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         drawSun();
 
-        let legs = 128;
+        let rays = 128;
         let leg_width = 7;
         analyser.getByteFrequencyData(dataArray);
 
-        for (let i = 0; i < legs; i++) {
+        for (let i = 0; i < rays; i++) {
 
-            rads = Math.PI * 2 / legs;
+            rads = Math.PI * 2 / rays;
             leg_height = dataArray[i] * 1.75;
-
 
             x = centerX + Math.cos(rads * i) * (radius);
             y = centerY + Math.sin(rads * i) * (radius);
             x_end = centerX + Math.cos(rads * i) * (radius + leg_height);
             y_end = centerY + Math.sin(rads * i) * (radius + leg_height);
 
-
             drawRay(x, y, x_end, y_end, leg_width, dataArray[i]);
-
         }
     }
 });
