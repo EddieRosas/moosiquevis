@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     playButton = document.getElementById("play-button");
     playButton.disabled = true;
+
     fileInput.onchange = () => {
         if (!audioContext || audioContext.state !== "running") {
             songUrl = URL.createObjectURL(fileInput.files[0]);
@@ -86,39 +87,49 @@ document.addEventListener("DOMContentLoaded", () => {
         centerY = HEIGHT / 2;
         radius = 215;
 
-        canvasCtx.fillStyle = "coral";
+        // body
         canvasCtx.beginPath();
         canvasCtx.arc(centerX, centerY, radius, 2 * Math.PI,  0);
-        canvasCtx.stroke();
+        // canvasCtx.stroke();
+        canvasCtx.fillStyle = "coral";
         canvasCtx.fill();
+        canvasCtx.closePath();
 
+        // left eye
         canvasCtx.beginPath();
         canvasCtx.arc(centerX - 100, centerY + 80, radius * .05, 0, 2 * Math.PI);
-        canvasCtx.stroke();
+        // canvasCtx.stroke();
         canvasCtx.fillStyle = "black";
         canvasCtx.fill();
+        canvasCtx.closePath();
 
+        // right eye
         canvasCtx.beginPath();
         canvasCtx.arc(centerX + 100, centerY + 80, radius * .05, 0, 2 * Math.PI);
-        canvasCtx.stroke();
+        // canvasCtx.stroke();
         canvasCtx.fillStyle = "black";
         canvasCtx.fill();
+        canvasCtx.closePath();
 
+        // smile
         canvasCtx.lineWidth = 2.5;
         canvasCtx.beginPath();
         canvasCtx.arc(centerX, centerY + 100, radius * .05, 0, Math.PI);
+        canvasCtx.strokeStyle = "black";
         canvasCtx.stroke();
+        canvasCtx.closePath();
     }
 
     drawRay = (x1, y1, x2, y2, width, frequency) => {
         let lineColor = "rgb(" + 200 + ", " + 170 + ", " + frequency + ")";
 
-        canvasCtx.strokeStyle = lineColor;
-        canvasCtx.lineWidth = width;
         canvasCtx.beginPath();
+        canvasCtx.lineWidth = width;
         canvasCtx.moveTo(x1, y1);
         canvasCtx.lineTo(x2, y2);
+        canvasCtx.strokeStyle = lineColor;
         canvasCtx.stroke();
+        canvasCtx.closePath();
     }
 
     sunAnimation = () => {
@@ -137,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         drawSun();
 
         let rays = 128;
-        let leg_width = 7;
+        let leg_width = 6.75;
         analyser.getByteFrequencyData(dataArray);
 
         for (let i = 0; i < rays; i++) {
