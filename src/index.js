@@ -1,5 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    let modal = document.getElementById("modal");
+    let btn = document.getElementById("instructions");
+    let span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
     const AudioContext = window.AudioContext || window.webkitAudioContext;
 
     let
@@ -81,16 +98,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const WIDTH = canvas.width;
     const HEIGHT = canvas.height;
-
+    
     drawSun = () => {
         centerX = WIDTH / 2;
         centerY = HEIGHT / 2;
         radius = 215;
 
-        // body
+        // shape
         canvasCtx.beginPath();
         canvasCtx.arc(centerX, centerY, radius, 2 * Math.PI,  0);
-        // canvasCtx.stroke();
         canvasCtx.fillStyle = "coral";
         canvasCtx.fill();
         canvasCtx.closePath();
@@ -98,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // left eye
         canvasCtx.beginPath();
         canvasCtx.arc(centerX - 100, centerY + 80, radius * .05, 0, 2 * Math.PI);
-        // canvasCtx.stroke();
         canvasCtx.fillStyle = "black";
         canvasCtx.fill();
         canvasCtx.closePath();

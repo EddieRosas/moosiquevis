@@ -1,56 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moosique Visualizer</title>
-    <link rel="stylesheet" type="text/css" href="dist/reset.css">
-    <link rel="stylesheet" type="text/css" href="dist/index.css">
-</head>
-<body>
-    <div id="main">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Moosique Visualizer</title>
+        <link rel="stylesheet" type="text/css" href="dist/reset.css">
+        <link rel="stylesheet" type="text/css" href="dist/index.css">
+    </head>
+    <body>
+        <div id="main">
+            <div class="topnav">
+                <div class="title">
+                    Sunshine Visualizer
+                </div>
 
-        <div class="header">
-            <h1>Moosique Visualizer</h1>
-        </div>
-
-        <!-- <button id="instructions">Instructions</button> -->
-
-        <!-- <div class="modal">
-            <div class="modal-content">
-                <h2>Pretty sights for pretty tunes!</h2>
-                <p>
-                    To begin, either upload your own song or click on the demo
-                    button to load your song onto the browser. Then click the play
-                    button to watch music come to life with some nice visuals!
-                    You can toggle between the Oscilloscope and the Happy Sun
-                    visualizers by clicking on their respective buttons. You can
-                    also choose to layer the two for an extra visual effect.
-                    Enjoy your tunes and the sights!
-                </p>
+                <ul class="personal-links">
+                    <li>
+                        <a href="https://github.com/EddieRosas">
+                            <img src="dist/gh-logo.svg" class="gh-logo" alt="github-logo">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/eddie-rosas-45ba6a13a/">
+                            <img src="dist/linkedinlogo.svg" class="li-logo" alt="linkedin-logo">
+                        </a>
+                    </li>
+                </ul>
             </div>
 
-        </div> -->
-
-
-        <div class="all-interface">
-            <input type="file" id="file-input" accept="audio/*,video/*image/*">
-
-            <button id="demo">
-                Try the Demo!
-            </button>
-
             <div class="interface">
+                <button id="instructions">Instructions</button>
+                <input type="file" id="file-input" title="" accept="audio/*,video/*image/*">
+                <button id="demo">
+                    Try the Demo!
+                </button>
                 <button id="play-button" data-playing="false" role="switch" aria-checked="false">
                     <span>Play/Pause</span>
                 </button>
             </div>
+
+            <div id="modal">
+                <div id="modal-content">
+                    <span class="close">&times;</span>
+                    <br>
+                    <p>
+                        To begin, either upload your own song or click "Try the Demo!"
+                        to load a default song. Then click the play
+                        button to watch music through rays of sunshine!
+                    </p>
+                    <br>
+                    <div id="modal-footer">
+                        <h3>Demo song credit: https://www.bensound.com</h3>
+                    </div>
+                </div>
+            </div>
+
+            <canvas class="canvas"></canvas>
+
+            <script type="application/javascript" src="dist/main.js"></script>
         </div>
-
-        <canvas></canvas>
-
-        <script type="application/javascript" src="dist/main.js"></script>
-    </div>
-
-</body>
+    </body>
 </html>
